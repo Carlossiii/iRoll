@@ -8,14 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    let dice6 = [1, 2, 3, 4, 5, 6]
+    @State private var results = [Int]()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Button("Roll the dice!") {
+                    results.append(randomDiceNumber(dice: dice6))
+                }
+                Section {
+                    List {
+                        ForEach(results.reversed(), id: \.self) { side in
+                            Text("\(side)")
+                        }
+                    }
+                }
+            }
+            .navigationTitle("iRoll")
         }
-        .padding()
+    }
+    
+    func randomDiceNumber (dice: [Int]) -> Int {
+        dice.randomElement()!
+    }
+    
+    func generateDice (dice: Int) -> [Int] {
+        var diceArray = [Int]()
+        for t in 0..<dice {
+            diceArray.append(t)
+        }
+        return diceArray
     }
 }
 
